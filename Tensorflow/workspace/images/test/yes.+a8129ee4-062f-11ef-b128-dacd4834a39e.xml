@@ -1,0 +1,26 @@
+<annotation>
+	<folder>yes</folder>
+	<filename>yes.+a8129ee4-062f-11ef-b128-dacd4834a39e.jpg</filename>
+	<path>/Users/rainymatch/Documents/My_Documents/WBS_Bootcamp/9 Deep Learning/RealTimeObjectDetection/Tensorflow/workspace/images/collectedimages/yes/yes.+a8129ee4-062f-11ef-b128-dacd4834a39e.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>yes</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>405</xmin>
+			<ymin>362</ymin>
+			<xmax>633</xmax>
+			<ymax>548</ymax>
+		</bndbox>
+	</object>
+</annotation>

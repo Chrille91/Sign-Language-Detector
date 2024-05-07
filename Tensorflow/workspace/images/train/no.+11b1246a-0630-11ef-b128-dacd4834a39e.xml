@@ -1,0 +1,26 @@
+<annotation>
+	<folder>no</folder>
+	<filename>no.+11b1246a-0630-11ef-b128-dacd4834a39e.jpg</filename>
+	<path>/Users/rainymatch/Documents/My_Documents/WBS_Bootcamp/9 Deep Learning/RealTimeObjectDetection/Tensorflow/workspace/images/collectedimages/no/no.+11b1246a-0630-11ef-b128-dacd4834a39e.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>no</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>687</xmin>
+			<ymin>328</ymin>
+			<xmax>943</xmax>
+			<ymax>503</ymax>
+		</bndbox>
+	</object>
+</annotation>

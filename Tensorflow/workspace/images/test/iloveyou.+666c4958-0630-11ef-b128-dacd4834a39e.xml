@@ -1,0 +1,26 @@
+<annotation>
+	<folder>iloveyou</folder>
+	<filename>iloveyou.+666c4958-0630-11ef-b128-dacd4834a39e.jpg</filename>
+	<path>/Users/rainymatch/Documents/My_Documents/WBS_Bootcamp/9 Deep Learning/RealTimeObjectDetection/Tensorflow/workspace/images/collectedimages/iloveyou/iloveyou.+666c4958-0630-11ef-b128-dacd4834a39e.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>iloveyou</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>842</xmin>
+			<ymin>156</ymin>
+			<xmax>1145</xmax>
+			<ymax>454</ymax>
+		</bndbox>
+	</object>
+</annotation>
