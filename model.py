@@ -3,6 +3,7 @@ import os
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from tensorflow.keras.callbacks import TensorBoard
+import numpy as np
 
 from config import facemesh_included, number_of_classes
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
@@ -100,3 +101,52 @@ def model_1(model_typ = "LSTM", act_funct = "tanh", activation = "softmax", neur
 
         return model
 
+# first M's model taken from his last notebook - adjusted for the number of classes in the config.py
+# ['Hi', 'Yes', 'No', 'ThankYou', 'ILoveYou', 'background', 'NoHands']
+def model_19():
+    from tensorflow.keras.layers import LSTM, Dense, Dropout
+    from tensorflow.keras.regularizers import l2
+
+    # activation_function = "relu"
+    activation_function = "tanh"
+
+    actions = np.array(['Hi', 
+                        'Yes', 
+                        'No', 
+                        'ThankYou', 
+                        'ILoveYou', 
+                        'background', 
+                        'NoHands'
+                        ])
+
+    class_weights = {
+        0: 1.0, 
+        1: 1.0, 
+        2: 1.0,  
+        3: 1.0,
+        4: 1.50, # I Love You
+        5: 2.0, 
+        6: 2.0,# _
+    }
+
+    if facemesh_included:
+            coeficient = 1
+            number_of_keypoints = 1662
+    else:
+            number_of_keypoints = 258
+            coeficient = 1
+
+    model = Sequential()
+    model.add(LSTM(64, return_sequences=True, activation='tanh', input_shape=(30, 1662), kernel_regularizer=l2(0.01)))
+    model.add(Dropout(0.5))
+    model.add(LSTM(128, return_sequences=True, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dropout(0.5))
+    model.add(LSTM(64, return_sequences=False, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dense(64, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dropout(0.5))
+    model.add(Dense(32, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dense(number_of_classes, activation='softmax'))
+
+
+    model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
+    return model
