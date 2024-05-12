@@ -4,7 +4,9 @@ import os
 # actions = np.array(['Hi', 'ILoveYou', '_'])
 actions = np.array(['Hi', 'Yes', 'No', 'ThankYou', 'ILoveYou', 'background', 'NoHands'])
 
-facemesh_included = False
+facemesh_included = True
+
+is_martin = True
 
 # Path for exported data, numpy arrays
 # DATA_PATH = os.path.join('mediapipe_keypoints')
