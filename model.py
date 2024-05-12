@@ -10,15 +10,6 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropou
 # activation_function = "relu"
 # activation_function = "tanh"
 
-def build_which_model(model_name):
-    # Access the function from the global scope
-    model_function = globals().get(model_name)
-    # Check if the function exists
-    if model_function:
-        return model_function()
-    else:
-        raise ValueError(f"No such model function: {model_name}")
- 
 
 # original function before implementing the build_which_model function - leaving untouched so as Christian can usi it if he wants
 def create_model(model_typ = "LSTM", act_funct = "tanh", activation = "softmax", neural_factor = 1):
@@ -36,7 +27,7 @@ def create_model(model_typ = "LSTM", act_funct = "tanh", activation = "softmax",
         model.add(LSTM(int(64*coefficient*neural_factor), return_sequences=False, activation=act_funct))
         model.add(Dense(int(64*coefficient*neural_factor), activation=act_funct))
         model.add(Dense(32*neural_factor, activation=act_funct))
-        model.add(Dense(number_of_classes, activation='softmax')) 
+        model.add(Dense(number_of_classes, activation=activation)) 
 
         model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
 
@@ -57,6 +48,19 @@ def create_model(model_typ = "LSTM", act_funct = "tanh", activation = "softmax",
         model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
 
         return model
+
+
+
+############################################################################################################
+
+def build_which_model(model_name):
+    # Access the function from the global scope
+    model_function = globals().get(model_name)
+    # Check if the function exists
+    if model_function:
+        return model_function()
+    else:
+        raise ValueError(f"No such model function: {model_name}")
 
 # Christians default model
 def model_1(model_typ = "LSTM", act_funct = "tanh", activation = "softmax", neural_factor = 1):
