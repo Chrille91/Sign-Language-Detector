@@ -2,6 +2,9 @@ import numpy as np
 import os
 
 # actions = np.array(['Hi', 'ILoveYou', '_'])
+# original value ['Hi', 'Yes', 'No', 'ThankYou', 'ILoveYou', 'background', 'NoHands']
+# - not changed yet, just writing it down here since I think we need to have a more flexible solution for changing the list of names... (?)
+
 actions = np.array(['Hi', 'Yes', 'No', 'ThankYou', 'ILoveYou', 'background', 'NoHands'])
 
 facemesh_included = False
