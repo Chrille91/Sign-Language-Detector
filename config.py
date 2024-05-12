@@ -4,7 +4,7 @@ import os
 # actions = np.array(['Hi', 'ILoveYou', '_'])
 actions = np.array(['Hi', 'Yes', 'No', 'ThankYou', 'ILoveYou', 'background', 'NoHands'])
 
-facemesh_included = True
+facemesh_included = False
 
 is_martin = True
 
