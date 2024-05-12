@@ -111,8 +111,8 @@ def model_1(model_typ = "LSTM", act_funct = "tanh", activation = "softmax", neur
 # first M's model taken from his last notebook - adjusted for the number of classes in the config.py
 # ['Hi', 'Yes', 'No', 'ThankYou', 'ILoveYou', 'background', 'NoHands']
 def model_19():
-    from tensorflow.keras.layers import LSTM, Dense, Dropout
-    from tensorflow.keras.regularizers import l2
+    from tensorflow.keras.layers import LSTM, Dense, Dropout # type: ignore
+    from tensorflow.keras.regularizers import l2 # type: ignore
 
     # activation_function = "relu"
     activation_function = "tanh"
