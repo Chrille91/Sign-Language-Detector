@@ -37,6 +37,7 @@ def create_model(model_type = "LSTM", act_funct = "tanh", activation = "softmax"
         model.add(Dense(number_of_classes, activation=activation)) 
 
         model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=metrics)
+        print(metrics)
 
         return model
     
