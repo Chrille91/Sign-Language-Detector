@@ -145,7 +145,7 @@ def model_19():
             coeficient = 1
 
     model = Sequential()
-    model.add(LSTM(64, return_sequences=True, activation='tanh', input_shape=(30, 1662), kernel_regularizer=l2(0.01)))
+    model.add(LSTM(64, return_sequences=True, activation='tanh', input_shape=(30, number_of_keypoints), kernel_regularizer=l2(0.01)))
     model.add(Dropout(0.5))
     model.add(LSTM(128, return_sequences=True, activation='tanh', kernel_regularizer=l2(0.01)))
     model.add(Dropout(0.5))
