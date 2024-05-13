@@ -6,6 +6,30 @@ from config import facemesh_included
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
 
+
+# function to set the camera settings
+default_fps = 30
+
+def set_camera_settings(cap, default_res=(1280, 720), default_fps=default_fps):
+    # Set desired resolution
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, default_res[0])
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, default_res[1])
+    
+    # Set desired FPS
+    cap.set(cv2.CAP_PROP_FPS, default_fps)
+    
+    # Check and print the actual resolution and FPS
+    actual_res = (int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+    actual_fps = cap.get(cv2.CAP_PROP_FPS)
+    
+    print(f"Requested Resolution: {default_res[0]}x{default_res[1]}, Actual Resolution: {actual_res[0]}x{actual_res[1]}")
+    print(f"Requested FPS: {default_fps}, Actual FPS: {actual_fps}")
+
+    # Return actual settings to allow for further validation if necessary
+    return actual_res, actual_fps
+
+
+
 def mediapipe_detection(image, model):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # COLOR CONVERSION BGR 2 RGB
     image.flags.writeable = False                  # Image is no longer writeable
@@ -16,7 +40,7 @@ def mediapipe_detection(image, model):
 
 def extract_keypoints(results):
     pose = np.array([[res.x, res.y, res.z, res.visibility] for res in results.pose_landmarks.landmark]).flatten() if results.pose_landmarks else np.zeros(33*4)
-    # face = np.array([[res.x, res.y, res.z] for res in results.face_landmarks.landmark]).flatten() if results.face_landmarks else np.zeros(468*3)
+    face = np.array([[res.x, res.y, res.z] for res in results.face_landmarks.landmark]).flatten() if results.face_landmarks else np.zeros(468*3)
     lh = np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(21*3)
     rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)
     if facemesh_included: 

@@ -5,3 +5,5 @@ env.py
 *.avi
 recordings/
 videos/
+MP_Data/
+*_data/
