@@ -9,7 +9,7 @@ actions = np.array(['Hi', 'Yes', 'No', 'ThankYou', 'ILoveYou', 'background', 'No
 
 facemesh_included = False
 
-is_martin = True
+is_martin = False
 
 # Path for exported data, numpy arrays
 # DATA_PATH = os.path.join('mediapipe_keypoints')
