@@ -24,3 +24,5 @@ no_sequences = 30
 sequence_length = 30
 
 number_of_classes = len(actions)
+
+
