@@ -19,7 +19,7 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropou
 
 
 # original function before implementing the build_which_model function - leaving untouched so as Christian can usi it if he wants
-def create_model(model_type = "LSTM", act_funct = "tanh", activation = "softmax", neural_factor = 1, metrics = ['categorical_accuracy', 'accuracy', 'Precision', 'Recall']):
+def create_model(model_type = "LSTM", activation_function = "tanh", activation = "softmax", neural_factor = 1, metrics = ['categorical_accuracy', 'accuracy', 'Precision', 'Recall']):
     if model_type == "LSTM":
         if facemesh_included == True:
             number_of_keypoints = 1662 # 258 if no facemesh, 1662 if facemesh is included
@@ -29,11 +29,11 @@ def create_model(model_type = "LSTM", act_funct = "tanh", activation = "softmax"
             coefficient = 0.5 # coefficient 0.5 means that the number of neurons in 2nd, the 3rd and the 4th layer will be half - so as to account for the smaller input shape WHEN FACEMESH is REMOVED
 
         model = Sequential()
-        model.add(LSTM(64, return_sequences=True, activation=act_funct, input_shape=(30, number_of_keypoints)))
-        model.add(LSTM(int(128*coefficient*neural_factor), return_sequences=True, activation=act_funct))
-        model.add(LSTM(int(64*coefficient*neural_factor), return_sequences=False, activation=act_funct))
-        model.add(Dense(int(64*coefficient*neural_factor), activation=act_funct))
-        model.add(Dense(32*neural_factor, activation=act_funct))
+        model.add(LSTM(64, return_sequences=True, activation=activation_function, input_shape=(30, number_of_keypoints)))
+        model.add(LSTM(int(128*coefficient*neural_factor), return_sequences=True, activation=activation_function))
+        model.add(LSTM(int(64*coefficient*neural_factor), return_sequences=False, activation=activation_function))
+        model.add(Dense(int(64*coefficient*neural_factor), activation=activation_function))
+        model.add(Dense(32*neural_factor, activation=activation_function))
         model.add(Dense(number_of_classes, activation=activation)) 
 
         model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=metrics)
@@ -42,16 +42,17 @@ def create_model(model_type = "LSTM", act_funct = "tanh", activation = "softmax"
         return model
     
     # adapted from Nick Renotte: https://github.com/nicknochnack/ImageClassification/blob/main/Getting%20Started.ipynb
+    # yet untested
     elif model_type == "Conv2D":
-        model.add(Conv2D(16, (3,3), 1, activation=act_funct, input_shape=(256,256,3)))
+        model.add(Conv2D(16, (3,3), 1, activation=activation_function, input_shape=(256,256,3)))
         model.add(MaxPooling2D())
-        model.add(Conv2D(32*coefficient*neural_factor, (3,3), 1, activation=act_funct))
+        model.add(Conv2D(32*coefficient*neural_factor, (3,3), 1, activation=activation_function))
         model.add(MaxPooling2D())
-        model.add(Conv2D(16*coefficient*neural_factor, (3,3), 1, activation=act_funct))
+        model.add(Conv2D(16*coefficient*neural_factor, (3,3), 1, activation=activation_function))
         model.add(MaxPooling2D())
         model.add(Flatten())
-        model.add(Dense(256*neural_factor, activation=act_funct))
-        model.add(Dense(1, activation='sigmoid'))
+        model.add(Dense(256*neural_factor, activation=activation_function))
+        model.add(Dense(number_of_classes, activation='sigmoid'))
 
         model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=metrics)
 
