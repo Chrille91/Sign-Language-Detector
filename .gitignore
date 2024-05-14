@@ -5,5 +5,7 @@ env.py
 *.avi
 recordings/
 videos/
-*_data/
+*_mdata/
 presentation/
+Logs/
+_*
