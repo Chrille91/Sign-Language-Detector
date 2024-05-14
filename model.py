@@ -1,13 +1,12 @@
 import os
+import numpy as np
+from config import facemesh_included, number_of_classes
 
 from tensorflow.keras.models import Sequential  # type: ignore
-from tensorflow.keras.layers import LSTM, Dense  # type: ignore
+from tensorflow.keras.layers import LSTM, Dense, Bidirectional, TimeDistributed, Conv1D, MaxPooling1D, Flatten, Attention  # type: ignore
 from tensorflow.keras.callbacks import TensorBoard  # type: ignore
-import numpy as np
-
-
-from config import facemesh_included, number_of_classes
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout # type: ignore
+
 
 
 
@@ -57,6 +56,53 @@ def create_model(model_type = "LSTM", activation_function = "tanh", activation =
         model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=metrics)
 
         return model
+
+
+def create_improved_model(model_type="LSTM", activation_function="tanh", activation="softmax", neural_factor=1, metrics=['categorical_accuracy', 'accuracy', 'Precision', 'Recall']):
+    # Determine the number of keypoints based on whether facemesh is included
+    number_of_keypoints = 1662 if facemesh_included else 258
+    
+    # Coefficient to scale the number of neurons if facemesh is not included
+    coefficient = 1 if facemesh_included else 0.5
+
+    model = Sequential()
+    
+    # Adding a TimeDistributed Conv1D layer to extract spatial features from each frame
+    # TimeDistributed allows applying the same Conv1D layer to each frame individually
+    model.add(TimeDistributed(Conv1D(filters=64, kernel_size=3, activation=activation_function), input_shape=(30, number_of_keypoints, 1)))
+    
+    # Adding a TimeDistributed MaxPooling1D layer to reduce the spatial dimensions of each frame
+    model.add(TimeDistributed(MaxPooling1D(pool_size=2)))
+    
+    # Adding a TimeDistributed Flatten layer to convert 2D features into 1D for each frame
+    model.add(TimeDistributed(Flatten()))
+    
+    # Adding a Bidirectional LSTM layer to capture dependencies in both forward and backward directions
+    # LSTM layer with 64 units, return_sequences=True to output a sequence of the same length
+    model.add(Bidirectional(LSTM(64, return_sequences=True, activation=activation_function)))
+    
+    # Adding another Bidirectional LSTM layer with more units for capturing more complex patterns
+    # Number of units is scaled by coefficient to adjust for facemesh inclusion/exclusion
+    model.add(Bidirectional(LSTM(int(128 * coefficient * neural_factor), return_sequences=True, activation=activation_function)))
+    
+    # Adding an Attention layer to focus on important frames or parts of the frames
+    model.add(Attention())
+    
+    # Adding a Dense layer with activation function to introduce non-linearity
+    # Number of units is scaled by coefficient to adjust for facemesh inclusion/exclusion
+    model.add(Dense(int(64 * coefficient * neural_factor), activation=activation_function))
+    
+    # Adding another Dense layer with fewer units
+    model.add(Dense(32 * neural_factor, activation=activation_function))
+    
+    # Output layer with softmax activation for multi-class classification
+    model.add(Dense(number_of_classes, activation=activation)) 
+
+    # Compiling the model with Adam optimizer and categorical crossentropy loss
+    model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=metrics)
+    print(metrics)
+
+    return model
 
 
 
