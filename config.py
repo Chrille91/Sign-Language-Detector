@@ -46,7 +46,7 @@ sequence_length = 30
 number_of_classes = len(actions)
 
 # Model Parameters
-neural_factor = 1 # used for naming of weights file, so only update number 
+neural_factor = 10 # used for naming of weights file, so only update number 
 model_type = "LSTM"
 activation_function = "tanh"
 activation = "softmax"
