@@ -11,3 +11,5 @@ Logs/
 _*
 augmentation/
 /bowmore_data
+/augmentation_keypoints
+/MP_Data
