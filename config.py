@@ -5,7 +5,27 @@ import os
 # original value ['Hi', 'Yes', 'No', 'ThankYou', 'ILoveYou', 'background', 'NoHands']
 # - not changed yet, just writing it down here since I think we need to have a more flexible solution for changing the list of names... (?)
 
-actions = np.array(['Hi', 'Yes', 'No', 'ThankYou', 'ILoveYou', 'background', 'NoHands'])
+# actions = np.array(['Hi', 'Yes', 'No', 'ThankYou', 'ILoveYou', 'background', 'NoHands'])
+empty_signs = ["background", "NoHands"]
+actions = [
+"ILoveYou",
+"Yes",
+"No",
+"Hi",
+"ThankYou",
+"Me",
+"You",
+"It",
+"Feel",
+"Happy",
+"Hungry",
+"Eat",
+"Bread",
+"Chocolate",
+"Tired",
+]
+actions = empty_signs + actions
+
 
 facemesh_included = False
 
