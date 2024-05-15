@@ -294,3 +294,74 @@ def improved_model_19():
 
     model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
     return model
+
+
+def model_bowmore():
+    from tensorflow.keras.layers import LSTM, Dense, Dropout # type: ignore
+    from tensorflow.keras.regularizers import l2 # type: ignore
+
+    facemesh_included = False
+    # activation_function = "relu"
+    activation_function = "tanh"
+
+    actions = np.array(['background',
+ 'NoHands',
+ 'ILoveYou',
+ 'Yes',
+ 'No',
+ 'Hi',
+ 'ThankYou',
+ 'Me',
+ 'You',
+ 'It',
+ 'Feel',
+ 'Happy',
+ 'Hungry',
+ 'Eat',
+ 'Bread',
+ 'Chocolate',
+ 'Tired'])
+
+    class_weights = {
+        0: 2.0, 
+        1: 2.0, 
+        2: 1.0,  
+        3: 1.0,
+        4: 1.0, 
+        5: 1.0, 
+        6: 1.0,
+        7: 1.0,
+        8: 1.0,
+        9: 1.0,
+        10: 1.0,
+        11: 1.0,
+        12: 1.0,
+        13: 1.0,
+        14: 1.0,
+        15: 1.0,
+        16: 1.0,
+    }
+
+    if facemesh_included:
+            coeficient = 1
+            number_of_keypoints = 1662
+    else:
+            number_of_keypoints = 258
+            coeficient = 1
+
+    number_of_classes = 17
+
+    model = Sequential()
+    model.add(LSTM(64*2, return_sequences=True, activation='tanh', input_shape=(30, number_of_keypoints), kernel_regularizer=l2(0.01)))
+    model.add(Dropout(0.5))
+    model.add(LSTM(128*2, return_sequences=True, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dropout(0.5))
+    model.add(LSTM(64*2, return_sequences=False, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dense(64, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dropout(0.5))
+    model.add(Dense(32, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dense(number_of_classes, activation='softmax'))
+
+
+    model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
+    return model
