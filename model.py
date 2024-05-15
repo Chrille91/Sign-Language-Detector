@@ -252,3 +252,45 @@ def model_19():
 
     model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
     return model
+
+
+def improved_model_19():
+    """
+    Bidirectional LSTM layers allow the model to learn from both past and future contexts in the sequences.
+    BatchNormalization layers help stabilize and speed up the training process.
+    An Attention layer helps the model focus on the important parts of the sequence.
+    A normalization layer normalizes the output of the attention mechanism to improve model stability.
+    """
+    if facemesh_included:
+        number_of_keypoints = 1662
+    else:
+        number_of_keypoints = 258
+
+    model = Sequential()
+    model.add(Input(shape=(sequence_length, number_of_keypoints)))
+    
+    # Adding bidirectional LSTMs
+    model.add(Bidirectional(LSTM(64, return_sequences=True, activation='tanh', kernel_regularizer=l2(0.01))))
+    model.add(Dropout(0.5))
+    model.add(BatchNormalization())
+    
+    model.add(Bidirectional(LSTM(128, return_sequences=True, activation='tanh', kernel_regularizer=l2(0.01))))
+    model.add(Dropout(0.5))
+    model.add(BatchNormalization())
+    
+    model.add(Bidirectional(LSTM(64, return_sequences=True, activation='tanh', kernel_regularizer=l2(0.01))))
+    model.add(Dropout(0.5))
+    model.add(BatchNormalization())
+    
+    # Adding attention mechanism
+    model.add(Attention())
+    model.add(LayerNormalization())
+
+    model.add(LSTM(64, return_sequences=False, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dense(64, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dropout(0.5))
+    model.add(Dense(32, activation='tanh', kernel_regularizer=l2(0.01)))
+    model.add(Dense(number_of_classes, activation='softmax'))
+
+    model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['categorical_accuracy'])
+    return model
