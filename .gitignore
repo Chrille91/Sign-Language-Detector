@@ -1,5 +1,8 @@
 weights/
+.lightning_studio/
 __pycache__/
+.idea/
+.vscode/
 .DS_Store
 env.py
 *.avi

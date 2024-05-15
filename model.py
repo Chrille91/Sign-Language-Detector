@@ -1,6 +1,9 @@
 import os
 import numpy as np
-from config import facemesh_included, number_of_classes
+import config
+import importlib
+importlib.reload(config)
+from config import actions, facemesh_included, number_of_classes
 
 from tensorflow.keras.models import Sequential  # type: ignore
 from tensorflow.keras.layers import LSTM, Dense, Bidirectional, TimeDistributed, Conv1D, MaxPooling1D, Flatten, Attention  # type: ignore
@@ -165,24 +168,68 @@ def model_19():
     # activation_function = "relu"
     activation_function = "tanh"
 
-    actions = np.array(['Hi', 
-                        'Yes', 
-                        'No', 
-                        'ThankYou', 
-                        'ILoveYou', 
-                        'background', 
-                        'NoHands'
-                        ])
+    # actions = np.array(['Hi', 
+    #                     'Yes', 
+    #                     'No', 
+    #                     'ThankYou', 
+    #                     'ILoveYou', 
+    #                     'background', 
+    #                     'NoHands'
+    #                     ])
 
+    empty_signs = ["background", "NoHands"]
+    actions = [
+        "ILoveYou",
+        "Yes",
+        "No",
+        "Hi",
+        "ThankYou",
+        "Me",
+        "You",
+        "It",
+        "Feel",
+        "Happy",
+        "Hungry",
+        "Eat",
+        "Bread",
+        "Chocolate",
+        "Tired",
+        ]
+    actions = empty_signs + actions
+
+    # class_weights = {i: 1.0 for i in range(number_of_classes)}
+    # class_weights = {
+    #     0: 1.0, 
+    #     1: 1.0, 
+    #     2: 1.0,  
+    #     3: 1.0,
+    #     4: 1.50, # I Love You
+    #     5: 2.0, 
+    #     6: 2.0,# _
+    # }
     class_weights = {
-        0: 1.0, 
-        1: 1.0, 
-        2: 1.0,  
-        3: 1.0,
-        4: 1.50, # I Love You
-        5: 2.0, 
-        6: 2.0,# _
+        0: 2.0,  # background
+        1: 2.0,  # NoHands
+        2: 1.0,  # ILoveYou
+        3: 1.0,  # Yes
+        4: 1.0,  # No
+        5: 1.0,  # Hi
+        6: 1.50, # ThankYou (adjusted weight)
+        7: 1.0,  # Me
+        8: 1.0,  # You
+        9: 1.0,  # It
+        10: 1.0, # Feel
+        11: 1.0, # Happy
+        12: 1.0, # Hungry
+        13: 1.0, # Eat
+        14: 1.0, # Bread
+        15: 1.0, # Chocolate
+        16: 1.0, # Tired
     }
+    # Validate class weights
+    print("Class weights:", class_weights)
+    # Ensure the weights cover all classes
+    assert len(class_weights) == number_of_classes
 
     if facemesh_included:
             coeficient = 1
