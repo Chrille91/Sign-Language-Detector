@@ -3,7 +3,7 @@
 <img src="https://github.com/Chrille91/Sign-Language-Detector/assets/49496538/35b5e37a-3569-4ff1-b15b-ba33e9dcad44.type" width="400" height="400">
 
 ## Presentation (PDF without videos)
-Please find our presentation here: [Vocal_Hands_Presentation.pdf](https://github.com/user-attachments/files/17902056/Vocal_Hands_public_small.pdf)
+Please find our presentation here: [Vocal_Hands_Presentation](https://github.com/user-attachments/files/17902056/Vocal_Hands_public_small.pdf)
 I'd love to give you a full presentation incl. videos of our model in action, so don't hesitate to contact me here or on LinkedIn. ^_^ 
 
 ## Idea
