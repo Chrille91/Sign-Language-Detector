@@ -25,8 +25,16 @@ To detect movements, we implement a pre-trained holistic landmark detection mode
 - Certainty of detected sign
 - Visible keypoint detection mask
 
+<img src="https://github.com/user-attachments/assets/4aff3f77-347a-41a5-9639-cb6e07823228" width="900">
+
+<img src="https://github.com/user-attachments/assets/f5523864-19f2-42bf-8013-b37760878d84" width="900">
+
+
 ## Limitations
-The keypoint detection fails to discriminate between 2D and 3D movements, e.g. when hands are crossing during signing. 
+- The keypoint detection fails to discriminate between 2D and 3D movements, e.g. when hands are crossing during signing. 
+- Due to limited computational power, we had to limit the webcam output to about 6 fps.
+
+<img src="https://github.com/user-attachments/assets/e897ce0a-a140-4d37-8880-7705d967fb2e" width="450">
 
 ## Future Goals
 - Implement [new MediaPipe Gesture Recognizer model](https://ai.google.dev/edge/mediapipe/solutions/vision/gesture_recognizer), i.e. the successor of our MP holistic landmarks detection model
