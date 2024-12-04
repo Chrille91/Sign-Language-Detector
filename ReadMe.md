@@ -1,4 +1,4 @@
-# Sign Language Detector using Deep Learning - <br/>Final Project for WBS Coding School 
+# Sign Language Detector using TensorFlow (Deep Learning) - <br/>Final Project for WBS Coding School 
 
 <img src="https://github.com/Chrille91/Sign-Language-Detector/assets/49496538/35b5e37a-3569-4ff1-b15b-ba33e9dcad44.type" width="400" height="400">
 
