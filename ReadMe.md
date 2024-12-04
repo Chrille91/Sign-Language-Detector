@@ -28,10 +28,13 @@ To detect movements, we implement a pre-trained holistic landmark detection mode
 ## Limitations
 The keypoint detection fails to discriminate between 2D and 3D movements, e.g. when hands are crossing during signing. 
 
-### Future Goals
+## Future Goals
+- Implement [new MediaPipe Gesture Recognizer model](https://ai.google.dev/edge/mediapipe/solutions/vision/gesture_recognizer), i.e. the successor of our MP holistic landmarks detection model
 - Translation of national sign languages using subtitles
 - Translating speech to hand signs
 - Speech-captioning
 - Lip-reading
 - Body language detection
 - ...
+
+  
