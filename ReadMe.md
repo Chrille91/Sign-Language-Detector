@@ -25,9 +25,9 @@ To detect movements, we implement a pre-trained holistic landmark detection mode
 - Certainty of detected sign
 - Visible keypoint detection mask
 
-<img src="https://github.com/user-attachments/assets/4aff3f77-347a-41a5-9639-cb6e07823228" width="900">
+<img src="https://github.com/user-attachments/assets/4aff3f77-347a-41a5-9639-cb6e07823228" width="700">
 
-<img src="https://github.com/user-attachments/assets/f5523864-19f2-42bf-8013-b37760878d84" width="900">
+<img src="https://github.com/user-attachments/assets/f5523864-19f2-42bf-8013-b37760878d84" width="700">
 
 
 ## Limitations
